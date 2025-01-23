@@ -11,7 +11,7 @@ int main()
 		cout << "3.科学计算器(未实现)" << endl;
  		cout << "4.BMI计算器" << endl;
 		cout << "5.进制计算器" << endl;
-		cout << "6.大写数字转换(BUG)" << endl;
+		cout << "6.大写数字转换" << endl;
 		cout << "7.时间转换计算器(BUG)" << endl;
 		cout << "8.计算机数据转换计算器" << endl;
 		cout << "9.长度转换" << endl;
