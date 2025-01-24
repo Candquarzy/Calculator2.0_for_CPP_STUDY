@@ -93,14 +93,19 @@ void Sys_Calcu(Sys_Carry& s);
 
 class BigNum //大写转换类
 {
+	friend ostream& operator<<(ostream& cout, BigNum& n);
 	double sum; //浮点型转换数
 	int count; //整型转换数
 	string math; //最终字符串结果
+	vector<BigNum> Data;
 
 public:
-	int Check_Float(double count, BigNum& n);
+	void Check_Float(double count, BigNum& n);
 	void Float_Transfrom(double count, BigNum& n);
 	void Int_Transfrom(int count, BigNum& n);
+	void Save_history(BigNum& n);
+	vector<BigNum> Return_Vector(BigNum& n);
+	void Display_history(vector<BigNum> p);
 };
 void BigNum_Trans(BigNum& n);
 
