@@ -109,10 +109,33 @@ public:
 };
 void BigNum_Trans(BigNum& n);
 
+//class Time //时间类(旧)
+//{
+//	friend ostream& operator<< (ostream& cout, Time& t);
+//	//long int timeStamp; //时间戳
+//	int sencond = 0; //秒
+//	long double minute = 0; //分
+//	double hour = 0; //时
+//	double day = 0; //天
+//	double week = 0; //周
+//	double month = 0; //月
+//	double year = 0; //年
+//	string times; //共多长时间
+//	int count[7] = { 0 };
+//
+//public:
+//	void Classify(string str, Time& t);
+//	void Times_Transfrom(Time& t);
+//	void Time_Transfrom(Time& t);
+//	void All_Times(Time& t);
+//	void Times_String(Time& t1, Time& t);
+//};
+//void Time_Calcu(Time& t);
+
 class Time //时间类
 {
-	friend ostream& operator<< (ostream& cout, Time& t);
-	//long int timeStamp; //时间戳
+	friend ostream& operator<<(ostream& cout, Time& t);
+	long int timestamp; //时间戳
 	int sencond = 0; //秒
 	long double minute = 0; //分
 	double hour = 0; //时
@@ -120,15 +143,15 @@ class Time //时间类
 	double week = 0; //周
 	double month = 0; //月
 	double year = 0; //年
-	string times; //共多长时间
+	//string times; //共多长时间
+	int sum[7] = { 0 };
 	int count[7] = { 0 };
-
+	vector<string> input_data;
+	vector<string> output_data;
 public:
-	void Classify(string str, Time& t);
-	void Times_Transfrom(Time& t);
+	int Classify(string str, Time& t);
 	void Time_Transfrom(Time& t);
-	void All_Times(Time& t);
-	void Times_String(Time& t1, Time& t);
+	void Input_Tostring(string str, Time& t, int count);
 };
 void Time_Calcu(Time& t);
 
