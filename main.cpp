@@ -12,7 +12,7 @@ int main()
  		cout << "4.BMI计算器" << endl;
 		cout << "5.进制计算器" << endl;
 		cout << "6.大写数字转换" << endl;
-		cout << "7.时间转换计算器(BUG)" << endl;
+		cout << "7.时间转换计算器" << endl;
 		cout << "8.计算机数据转换计算器" << endl;
 		cout << "9.长度转换" << endl;
 		cout << "10.重量转换" << endl;
@@ -25,7 +25,6 @@ int main()
 		cout << "0.退出计算器(默认)" << endl;
 
 		cin >> user_input;
-		//cin 输入错误后会出现空淡 需要清除用户输入的内容
 		switch (user_input)
 		{
 		case 1:

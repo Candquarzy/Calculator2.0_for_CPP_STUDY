@@ -126,32 +126,24 @@ void Time::Input_Tostring(string str, Time& t, int count)
 			sstr += "年";
 			break;
 		}
-
-		if (count)
-		{
-			t.output_data.push_back(sstr);
-		}
-		else
-		{
-			t.input_data.push_back(sstr);
-		}
 		str.erase(0, last + 1);
+	}
+	if (count)
+	{
+		t.output_data.push_back(sstr);
+	}
+	else
+	{
+		t.input_data.push_back(sstr);
 	}
 }
 
 //时间转换器成员函数
 void Time::Time_Transfrom(Time& t)
 {
-	int last; //转换前
 	int num; //转换后
 	string str;
-	for (int i = 0; i <= sizeof(t.sum) / sizeof(t.sum[0]); i++)
-	{
-		if (t.sum[i])
-		{
-			last = i;
-		}
-	}
+	ostringstream oss;
 	for (int i = 0; i <= sizeof(t.count) / sizeof(t.count[0]); i++)
 	{
 		if (t.count[i])
@@ -160,110 +152,154 @@ void Time::Time_Transfrom(Time& t)
 			break;
 		}
 	}
-	//int power[7] = { 12,4,7,24,60,60,60 };
-	if (last >= num)
+
+	switch (num)
 	{
-		switch (num)
-		{
-		case 0:
-			t.day += t.year * 365 + t.month * 30 + t.week * 7;
-			t.hour += t.day * 24;
-			t.minute += t.hour * 60;
-			t.sencond += t.minute * 60;
-			str += to_string(t.sencond) += 's';
-			break;
-		case 1:
-			t.day += t.year * 365 + t.month * 30 + t.week * 7;
-			t.hour += t.day * 24;
-			t.minute += t.hour * 60;
-			str += to_string(t.minute) += 'f';
-			break;
-		case 2:
-			t.day += t.year * 365 + t.month * 30 + t.week * 7;
-			t.hour += t.day * 24;
-			str += to_string(t.hour) += 'h';
-			break;
-		case 3:
-			t.day += t.year * 365 + t.month * 30 + t.week * 7;
-			str += to_string(t.day) += 'd';
-			break;
-		case 4:
-			t.month += t.year * 12;
-			t.week += t.month * 4;
-			str += to_string(t.week) += 'w';
-			break;
-		case 5:
-			t.month += t.year * 12;
-			str += to_string(t.month) += 'm';
-			break;
-		case 6:
-			str += to_string(t.year) += 'y';
-			break;
-		}
-	}
-	else if (last < num)
-	{
-		switch (num)
-		{
-		case 0:
-			str += to_string(t.sencond) += 's';
-			break;
-		case 1:
-			t.minute += t.sencond / 60.0;
-			str += to_string(t.minute) += 'f';
-			break;
-		case 2:
-			t.minute += t.sencond / 60.0;
-			t.hour += t.minute / 60.0;
-			str += to_string(t.hour) += 'h';
-			break;
-		case 3:
-			t.minute += t.sencond / 60.0;
-			t.hour += t.minute / 60.0;
-			t.day += t.hour / 24.0;
-			str += to_string(t.day) += 'd';
-			break;
-		case 4:
-			t.minute += t.sencond / 60.0;
-			t.hour += t.minute / 60.0;
-			t.day += t.hour / 24.0;
-			t.week += t.day / 7.0;
-			str += to_string(t.week) += 'w';
-			break;
-		case 5:
-			t.minute += t.sencond / 60.0;
-			t.hour += t.minute / 60.0;
-			t.day += t.hour / 24.0;
-			t.week += t.day / 7.0;
-			t.month += t.week / 4.0;
-			str += to_string(t.month) += 'm';
-			break;
-		case 6:
-			t.minute += t.sencond / 60.0;
-			t.hour += t.minute / 60.0;
-			t.day += t.hour / 24.0;
-			t.week += t.day / 7.0;
-			t.month += t.week / 4.0;
-			t.year += t.month / 12.0;
-			str += to_string(t.year) += 'y';
-			break;
-		}
+	case 0:
+		t.day += t.year * 365 + t.month * 30 + t.week * 7;
+		t.hour += t.day * 24;
+		t.minute += t.hour * 60;
+		t.sencond += t.minute * 60;
+		str += to_string(t.sencond) += 's';
+		break;
+	case 1:
+		t.day += t.year * 365 + t.month * 30 + t.week * 7;
+		t.hour += t.day * 24;
+		t.minute += t.hour * 60;
+		t.minute += t.sencond / 60.0;
+		oss << fixed << setprecision(2) << t.minute;
+		str += oss.str() += 'f';
+		break;
+	case 2:
+		t.day += t.year * 365 + t.month * 30 + t.week * 7;
+		t.hour += t.day * 24;
+		t.minute += t.sencond / 60.0;
+		t.hour += t.minute / 60.0;
+		oss << fixed << setprecision(2) << t.hour;
+		str += oss.str() += 'h';
+		break;
+	case 3:
+		t.day += t.year * 365 + t.month * 30 + t.week * 7;
+		t.minute += t.sencond / 60.0;
+		t.hour += t.minute / 60.0;
+		t.day += t.hour / 24.0;
+		oss << fixed << setprecision(2) << t.day;
+		str += oss.str() += 'd';
+		break;
+	case 4:
+		t.month += t.year * 12;
+		t.week += t.month * 4;
+		t.minute += t.sencond / 60.0;
+		t.hour += t.minute / 60.0;
+		t.day += t.hour / 24.0;
+		t.week += t.day / 7.0;
+		oss << fixed << setprecision(2) << t.week;
+		str += oss.str() += 'w';
+		break;
+	case 5:
+		t.month += t.year * 12;
+		t.minute += t.sencond / 60.0;
+		t.hour += t.minute / 60.0;
+		t.day += t.hour / 24.0;
+		t.week += t.day / 7.0;
+		t.month += t.week / 4.0;
+		oss << fixed << setprecision(2) << t.month;
+		str += oss.str() += 'm';
+		break;
+	case 6:
+		t.minute += t.sencond / 60.0;
+		t.hour += t.minute / 60.0;
+		t.day += t.hour / 24.0;
+		t.week += t.day / 7.0;
+		t.month += t.week / 4.0;
+		t.year += t.month / 12.0;
+		oss << fixed << setprecision(2) << t.year;
+		str += oss.str() += 'y';
+		break;
 	}
 	t.Input_Tostring(str, t, 1);
+}
+
+//返回输入容器成员函数
+vector<string> Time::Return_Input_Vector(Time& t)
+{
+	return t.input_data;
+}
+
+//返回转换后容器成员函数
+vector<string> Time::Return_Output_Vector(Time& t)
+{
+	return t.output_data;
+}
+
+//显示历史记录成员函数
+void Time::Display_history(vector<string>istr, vector<string>ostr)
+{
+	if (!ostr.size())
+	{
+		cout << "历史记录为空" << endl;
+		cout << endl;
+		return;
+	}
+
+	for (int i = 0; i < ostr.size(); i++)
+	{
+		cout << i + 1 << ". " << "转换前: " << istr[i] << "转换后: " << ostr[i] << endl;
+	}
+	cout << endl;
+}
+
+//重置数据成员函数
+void Time::Reset_Data(Time& t)
+{
+	t.sencond = 0;
+	t.minute = 0;
+	t.hour = 0;
+	t.day = 0;
+	t.week = 0;
+	t.month = 0;
+	t.year = 0;
+	for (int i = 0; i < sizeof(t.sum) / sizeof(t.sum[0]); i++)
+	{
+		t.sum[i] = 0;
+		t.count[i] = 0;
+	}
 }
 
 //时间转换计算器主函数
 void Time_Calcu(Time& t)
 {
-	string input;
-	cout << "请输入你哟啊转换数据，并附带单位再使用-链接你要转换后的单位" << endl;
-	cout << "单位: s:秒 f:分 h:时 d:天 w:周 m:月 y:年 (默认为分钟)" << endl;
-	cout << "也可以输入xx年xx月xx周xx天 如:4m3w10d20h" << endl;
-	cin >> input;
-	if (t.Classify(input, t))
+	while (1)
 	{
-		t.Time_Transfrom(t);
-		cout << t << endl;
+		string input;
+		cout << "请输入你要转换数据，并附带单位再使用-链接你要转换后的单位" << endl;
+		cout << "单位: s:秒 f:分 h:时 d:天 w:周 m:月 y:年 (默认为分钟)" << endl;
+		cout << "也可以输入xx年xx月xx周xx天 如:4m3w10d20h" << endl;
+		cout << "输入s查看历史记录 输入e返回主菜单" << endl;
+		cin >> input;
+		cout << endl;
+
+		if (input.length() == 1)
+		{
+			const char* s = input.c_str();
+			switch (*s)
+			{
+			case 's':
+				t.Display_history(t.Return_Input_Vector(t), t.Return_Output_Vector(t));
+				break;
+			case 'e':
+				return;
+				break;
+			}
+		}
+		else
+		{
+			if (t.Classify(input, t))
+			{
+				t.Time_Transfrom(t);
+				cout << t << endl;
+				t.Reset_Data(t);
+			}
+		}
 	}
-	//未写放入output_data的代码
 }

@@ -135,7 +135,7 @@ void BigNum_Trans(BigNum& n);
 class Time //时间类
 {
 	friend ostream& operator<<(ostream& cout, Time& t);
-	long int timestamp; //时间戳
+	//long int timestamp; //时间戳
 	int sencond = 0; //秒
 	long double minute = 0; //分
 	double hour = 0; //时
@@ -152,6 +152,10 @@ public:
 	int Classify(string str, Time& t);
 	void Time_Transfrom(Time& t);
 	void Input_Tostring(string str, Time& t, int count);
+	vector<string> Return_Input_Vector(Time& t);
+	vector<string> Return_Output_Vector(Time& t);
+	void Display_history(vector<string>istr, vector<string>ostr);
+	void Reset_Data(Time& t);
 };
 void Time_Calcu(Time& t);
 
