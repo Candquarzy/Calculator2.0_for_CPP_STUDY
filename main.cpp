@@ -22,6 +22,7 @@ int main()
 		cout << "14.速度转换" << endl;
 		cout << "15.称呼计算器(没想好要怎么写)" << endl;
 		cout << "16.世界时间计算器(未考虑夏令时,BUG)" << endl;
+		cout << "17.二进制原、反、补、移转换器" << endl;
 		cout << "0.退出计算器(默认)" << endl;
 
 		cin >> user_input;
@@ -113,6 +114,12 @@ int main()
 		{
 			World W1;
 			World_Time_Calcu(W1);
+			break;
+		}
+		case 17:
+		{
+			Binary B1;
+			Binary_Trans(B1);
 			break;
 		}
 		case 0:

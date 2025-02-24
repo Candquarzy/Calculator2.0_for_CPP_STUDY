@@ -317,9 +317,31 @@ class World //世界时间类
 	struct tm* t; //实例化time类
 	vector<string> times;
 	//time_t times[9];
+
 public:
 	void Time_Struct_New(World& w);
 	void Time_Trans(World& w);
 	void Display_Data(World& w);
 };
 void World_Time_Calcu(World& w);
+
+class Binary //二进制转换类
+{
+	friend ostream& operator<<(ostream& cout, Binary& b);
+	double DEC; //输入的十进制
+	double Decimals; //输入的十进制小数
+	string BIN_O; //二进制原码
+	string BIN_F; //二进制反码
+	string BIN_B; //二进制补码
+	string BIN_Y; //二进制移码
+
+public:
+	void DEC_To_BIN(Binary& b);
+	void Input_DEC(Binary& b, double count);
+	void DEC_To_BIN_O(Binary& b);
+	void BIN_O_To_F(Binary& b);
+	void BIN_O_To_B(Binary& b);
+	void BIN_B_To_Y(Binary& b);
+	void Reset_Class(Binary& b);
+};
+void Binary_Trans(Binary& b);
