@@ -9,15 +9,17 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+      - name: Checkout code
+        uses: actions/checkout@v2  # 检出最新的代码
+
+      - name: Set up CMake
+        uses: lukka/get-cmake@v3  # 设置 CMake 环境
+
+      - name: Configure with CMake
+        run: cmake -S . -B build  # 生成构建系统文件
+
+      - name: Build with CMake
+        run: cmake --build build --config Release  # 编译项目
