@@ -19,12 +19,14 @@ jobs:
       - name: Set up MSYS2
         uses: msys2/setup-msys2@v2  # 设置 MSYS2 环境
         with:
-          update: true
+          update: true  # 更新 MSYS2 到最新版本
+          install: >-   # 安装所需的工具
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-make
 
-      - name: Install g++
-        run: |
-          pacman -S --noconfirm mingw-w64-x86_64-gcc
+      - name: Add MSYS2 to PATH
+        run: echo "C:\msys64\mingw64\bin" >> $GITHUB_PATH  # 将 MSYS2 的 bin 目录添加到 PATH
 
       - name: Compile
-        run: |
-          g++ -std=c++17 -o Calculator2.0 *.cpp  # 编译所有的 .cpp 文件
+        run: g++ -std=c++11 -o Calculator2.0 *.cpp  # 编译所有的 .cpp 文件
+
