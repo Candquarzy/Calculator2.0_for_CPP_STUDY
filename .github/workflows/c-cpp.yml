@@ -28,5 +28,5 @@ jobs:
         run: echo "C:\msys64\mingw64\bin" >> $GITHUB_PATH  # 将 MSYS2 的 bin 目录添加到 PATH
 
       - name: Compile
-        run: g++ -std=c++11 -o Calculator2.0 *.cpp  # 编译所有的 .cpp 文件
+        run: g++ -std=c++20 -o Calculator2.0 *.cpp  # 编译所有的 .cpp 文件
 
