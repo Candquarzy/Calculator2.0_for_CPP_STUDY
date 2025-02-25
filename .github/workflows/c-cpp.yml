@@ -1,25 +1,30 @@
-name: C/C++ CI
+name: C++ Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master  # 在推送到 master 分支时触发
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master  # 在针对 master 分支的拉取请求时触发
 
 jobs:
   build:
-
-    runs-on: windows-latest
+    runs-on: windows-latest  # 使用最新的 Windows 环境
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # 检出最新的代码
+        uses: actions/checkout@v3  # 检出最新的代码
 
-      - name: Set up CMake
-        uses: lukka/get-cmake@latest  # 设置 CMake 环境
+      - name: Set up MSYS2
+        uses: msys2/setup-msys2@v2  # 设置 MSYS2 环境
+        with:
+          update: true
 
-      - name: Configure with CMake
-        run: cmake -S . -B build  # 生成构建系统文件
+      - name: Install g++
+        run: |
+          pacman -S --noconfirm mingw-w64-x86_64-gcc
 
-      - name: Build with CMake
-        run: cmake --build build --config Release  # 编译项目
+      - name: Compile
+        run: |
+          g++ -std=c++17 -o Calculator2.0 *.cpp  # 编译所有的 .cpp 文件
